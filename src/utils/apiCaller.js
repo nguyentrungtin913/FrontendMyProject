@@ -13,6 +13,6 @@ export default function callAPI(endpoint, method = 'GET', body) {
         'Content-Type': 'application/json'
       },
     }).catch(err => {
-        console.log(err.response.data);
+        console.log(err);
     });
 }
