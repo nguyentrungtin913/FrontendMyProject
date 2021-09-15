@@ -72,7 +72,7 @@ export const actAddTypeMockupRequest = (mockupType) => {
         return callAPI('mockup-type', 'POST', mockupType).then(
             res => {
                 console.log(res);
-                //dispatch(actAddTypeMockup(res.data));
+                dispatch(actAddTypeMockup(res.data));
             });
     }
 }
