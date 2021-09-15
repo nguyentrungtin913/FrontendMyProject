@@ -69,7 +69,7 @@ export const actFetchTypesMockup = (mockupTypes) => {
 }
 export const actAddTypeMockupRequest = (mockupType) => {
     return (dispatch) => {
-        return callAPI('mockup-type', 'GET', mockupType).then(
+        return callAPI('mockup-type', 'POST', mockupType).then(
             res => {
                 console.log(res);
                 //dispatch(actAddTypeMockup(res.data));
