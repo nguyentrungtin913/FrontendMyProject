@@ -9,13 +9,25 @@ const mockups = (state = initialState, action) => {
         case Types.FETCH_MOCKUPS:
             state = action.mockups;
             return [...state];
+
         case Types.DELETE_MOCKUP:
             index = _.findIndex(state, (mkp) => {
                 return mockup.id === mkp.id;
             })
-            console.log(index)
             state.splice(index, 1);
+            return [...state];
+
+        case Types.ADD_MOCKUP:
+            state.push(mockup);
+            return [...state];
+
+        case Types.UPDATE_MOCKUP:
+            index = _.findIndex(state, (mkp) => {
+                return mockup.id === mkp.id;
+            })
+            state[index]=mockup;
             return [...state]
+
 
         default: return [...state]
     }

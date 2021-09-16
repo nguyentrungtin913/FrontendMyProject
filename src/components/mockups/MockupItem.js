@@ -1,4 +1,5 @@
 import { Component } from "react";
+import { Link } from "react-router-dom";
 import * as Types from './../../constants/Config';
 class MockupItem extends Component {
 
@@ -19,7 +20,7 @@ class MockupItem extends Component {
                 <p>{mockup.price}đ</p>
                 <div className="three" >
                     <a href="\#" className="btn btn-lg btn-outline-success mr-2">Render</a>
-                    <a href="\#" className="btn btn-lg btn-outline-warning mr-2">Edit</a>
+                    <Link to={`/mockup/${mockup.id}/edit`} className="btn btn-lg btn-outline-warning mr-2">Edit</Link>
                     <button className="btn btn-lg btn-outline-danger" onClick={() => this.onDelete(mockup.id)} >Delete</button>
                 </div>
             </div>

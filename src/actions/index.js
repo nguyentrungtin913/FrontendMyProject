@@ -19,15 +19,55 @@ export const actFetchMockups = (mockups) => {
 }
 
 export const actAddMockupRequest = (mockup) => {
-    console.log(mockup);
+
     return (dispatch) => {
-        return callAPI('save-mockup', 'POST', mockup).then(
+        return callAPI('mockup', 'POST', mockup).then(
             res => {
-                console.log(res);
+                dispatch(actAddMockup(res.data));
             });
     }
 }
 
+export const actAddMockup = (mockup) =>{
+    return {
+        type: Types.ADD_MOCKUP,
+        mockup
+    }
+}
+
+export const actEditMockupRequest = (id) => {
+
+    return (dispatch) => {
+        return callAPI(`mockup/${id}`, 'GET', null).then(
+            res => {
+                dispatch(actEditMockup(res.data));
+            });
+    }
+}
+
+export const actEditMockup = (mockup) =>{
+    return {
+        type: Types.EDIT_MOCKUP,
+        mockup
+    }
+}
+
+export const actUploadMockupRequest = (mockup) => {
+
+    return (dispatch) => {
+        return callAPI(`mockup`, 'PUT', mockup).then(
+            res => {
+                dispatch(actUploadMockup(res.data));
+            });
+    }
+}
+
+export const actUploadMockup = (mockup) =>{
+    return {
+        type: Types.UPDATE_MOCKUP,
+        mockup
+    }
+}
 
 export const actDeleteMockupRequest = (id) => {
     return (dispatch) => {
@@ -45,13 +85,7 @@ export const actDeleteMockup = (mockup) => {
     }
 }
 
-// export const actFetchMockups = (mockups) =>{
-//     return {
-//         type: Types.FETCH_MOCKUPS,
-//         mockups
-//     }
-// }
-//type mockup
+
 export const actFetchTypesMockupRequest = () => {
     return (dispatch) => {
         return callAPI('mockup-types', 'GET', null).then(

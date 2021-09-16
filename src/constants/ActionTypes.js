@@ -1,6 +1,8 @@
 export const FETCH_MOCKUPS = 'FETCH_MOCKUPS';
 export const ADD_MOCKUP = 'ADD_MOCKUP';
 export const DELETE_MOCKUP = 'DELETE_MOCKUP';
+export const EDIT_MOCKUP = 'EDIT_MOCKUP';
+export const UPDATE_MOCKUP = 'UPDATE_MOCKUP';
 
 export const FETCH_MOCKUPTYPES = 'FETCH_MOCKUPTYPES';
 export const ADD_MOCKUPTYPE = 'ADD_MOCKUPTYPE';

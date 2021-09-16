@@ -15,7 +15,11 @@ const routes = [
         exact: false,
         main: ({ history }) => <MockupActionPage history={history} />
     },
-
+    {
+        path: '/mockup/:id/edit',
+        exact: false,
+        main: ({ history, match }) => <MockupActionPage history={history} match={match} />
+    },
     {
         path: '/mockup-types',
         exact: false,

@@ -2,24 +2,45 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { actAddMockupRequest, actFetchTypesMockupRequest } from '../../actions';
-
+import { actAddMockupRequest, actEditMockupRequest, actFetchTypesMockupRequest, actUploadMockupRequest } from '../../actions';
+import * as Types from './../../constants/Config';
 
 class MockupActionPage extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
+            id: "",
             name: "",
             side: "",
             price: "",
             type: 0,
-            image: null,
+            image: "",
+            path: "",
         }
     }
 
     componentDidMount() {
         this.props.getTypesMockup();
+        var { match } = this.props;
+        if (match) {
+            var id = match.params.id;
+            this.props.editMockup(id);
+        }
+    }
+    componentWillReceiveProps(nextProps) {
+        if (nextProps && nextProps.mockupEditting) {
+            var { mockupEditting } = nextProps;
+            this.setState({
+                id: mockupEditting.id,
+                name: mockupEditting.name,
+                side: mockupEditting.side,
+                price: mockupEditting.price,
+                type: mockupEditting.typeId,
+                path: mockupEditting.path,
+            })
+        }
+
     }
 
     createImage(file) {
@@ -30,6 +51,7 @@ class MockupActionPage extends Component {
             })
         };
         reader.readAsDataURL(file);
+
     }
 
     onChange = (e) => {
@@ -42,7 +64,7 @@ class MockupActionPage extends Component {
         });
 
         if (target.type === 'file') {
-           
+
             var files = target.files;
 
             this.createImage(files[0]);
@@ -63,14 +85,16 @@ class MockupActionPage extends Component {
                 })(img);
                 reader.readAsDataURL(file);
             }
-        }  
-
+        }
+        console.log(this.state)
     }
     onSave = (e) => {
 
-        var { name, side, price, type, image } = this.state;
-        // var { history } = this.props;
+        var { id, name, side, price, type, image } = this.state;
+        var { history } = this.props;
+
         var mockup = {
+            id: id,
             name: name,
             side: side,
             price: parseInt(price),
@@ -78,12 +102,26 @@ class MockupActionPage extends Component {
             image: image,
         }
         e.preventDefault();
-        this.props.addMockup(mockup);
-    }
+        if(id){
+            this.props.updateMockup(mockup);
+        }
+        else{
+            this.props.addMockup(mockup);
+        }
+        
 
+        history.goBack();
+    }
+    showImage = (path) => {
+        var resutl = null;
+        if (path) {
+            resutl = Types.API_URL + "/" + path;
+        }
+        return resutl;
+    }
     render() {
         var { mockupTypes } = this.props;
-        var { name, type } = this.state;
+        var { name, side, price, type, path } = this.state;
         return (
             <div>
                 <div className="panel panel-primary mlr-10">
@@ -94,7 +132,9 @@ class MockupActionPage extends Component {
                         <div className="six">
                             <img id="showImage"
                                 className="seven previewImage"
-                                src="" alt="" />
+                                src={this.showImage(path)}
+                                alt="mockup"
+                            />
                         </div>
                         <form className="eight" onSubmit={this.onSave} >
                             <meta name="csrf-token" content="{{ csrf_token() }}" />
@@ -114,6 +154,7 @@ class MockupActionPage extends Component {
                                     type="text"
                                     className="form-control"
                                     name="side"
+                                    value={side}
                                     onChange={this.onChange}
                                 />
                             </div>
@@ -123,6 +164,7 @@ class MockupActionPage extends Component {
                                     type="text"
                                     className="form-control"
                                     name="price"
+                                    value={price}
                                     onChange={this.onChange}
                                 />
                             </div>
@@ -134,7 +176,6 @@ class MockupActionPage extends Component {
                                     className="form-control"
                                     onChange={this.onChange}
                                 >
-
                                     <option value="0" >--Choose--</option>
                                     {this.showMockupTypes(mockupTypes)}
                                 </select>
@@ -174,7 +215,8 @@ class MockupActionPage extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        mockupTypes: state.mockupTypes
+        mockupTypes: state.mockupTypes,
+        mockupEditting: state.mockupEditting
     }
 }
 
@@ -185,6 +227,12 @@ const mapDispatchToProps = (dispatch, props) => {
         },
         addMockup: (mockup) => {
             dispatch(actAddMockupRequest(mockup))
+        },
+        editMockup: (id) => {
+            dispatch(actEditMockupRequest(id))
+        },
+        updateMockup: (mockup) =>{
+            dispatch(actUploadMockupRequest(mockup))
         }
     }
 
