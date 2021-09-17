@@ -86,7 +86,6 @@ class MockupActionPage extends Component {
                 reader.readAsDataURL(file);
             }
         }
-        console.log(this.state)
     }
     onSave = (e) => {
 
@@ -108,8 +107,6 @@ class MockupActionPage extends Component {
         else{
             this.props.addMockup(mockup);
         }
-        
-
         history.goBack();
     }
     showImage = (path) => {
