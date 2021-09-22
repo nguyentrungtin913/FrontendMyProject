@@ -104,3 +104,32 @@
 .full-screen{
   overflow: hidden;
 }
+.table-render{
+  width: 100%;
+  padding: auto;
+  text-align: center;
+}
+.auto{
+  text-align: center;
+}
+.login{
+  width: 50%;
+  margin: 50px auto;
+}
+
+.show{
+  display: block;
+}
+.hidden{
+  display: none;
+}
+.ml-10{
+  margin-left: 10px;
+}
+.float{
+  float: inherit
+}
+.profile{
+  color: white;
+  background-color: white;
+}

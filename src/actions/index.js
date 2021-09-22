@@ -21,9 +21,13 @@ export const actFetchMockups = (mockups) => {
 export const actAddMockupRequest = (mockup) => {
 
     return (dispatch) => {
-        return callAPI('mockup', 'POST', mockup).then(
+        console.log("======");
+        console.log(mockup);
+        console.log("======");
+        return callAPI('test-mk', 'POST', mockup).then(
             res => {
-                dispatch(actAddMockup(res.data));
+                console.log(res)
+                //dispatch(actAddMockup(res.data));
             });
     }
 }
@@ -85,6 +89,23 @@ export const actDeleteMockup = (mockup) => {
     }
 }
 
+export const actRenderMockupRequest = (id, image) => {
+    return (dispatch) => {
+        return callAPI(`render/${id}`, 'POST', image).then(
+            res => {
+                console.log(res)
+                dispatch(actRenderMockup(res.data));
+            });
+    }
+}
+
+export const actRenderMockup = (path) => {
+    return {
+        type: Types.RENDER_MOCKUP,
+        path
+    }
+}
+///////////////////////////
 
 export const actFetchTypesMockupRequest = () => {
     return (dispatch) => {
@@ -165,4 +186,29 @@ export const actUpdateTypeMockup = (mockupType) => {
     }
 }
 
+export const actAuthenticateRequest = (user) => {
+    return (dispatch) => {
+        return callAPI(`auth`, 'POST', user).then(
+            res => {
+                dispatch(actAuthenticate(res.data));
+            });
+    }
+}
+
+export const actAuthenticate = (user) => {
+    return {
+        type: Types.AUTHENTICATE,
+        user
+    }
+}
+
+export const actLogoutRequest = () => {
+    return (dispatch) => {
+        return callAPI(`logout`, 'GET', null).then(
+            res => {
+                //console.log(res);
+                dispatch(actAuthenticate(res.data));
+            });
+    }
+}
 

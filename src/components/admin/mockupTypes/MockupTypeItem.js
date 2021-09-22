@@ -16,7 +16,7 @@ class MockupTypeItem extends Component {
                 <td>{mockupType.id}</td>
                 <td>{mockupType.name}</td>
                 <td>
-                    <Link to={`/mockup-type/${mockupType.id}/edit`} className="btn btn-lg btn-warning mr-10">Edit</Link>
+                    <Link to={`/admin/mockup-type/${mockupType.id}/edit`} className="btn btn-lg btn-warning mr-10">Edit</Link>
                     <button
                         type="button"
                         className="btn btn-lg btn-danger mr-10"

@@ -1,8 +1,8 @@
 import { Component } from "react";
 import { connect } from 'react-redux';
-import ListMockup from './../../components/mockups/ListMockup';
-import MockupItem from "../../components/mockups/MockupItem";
-import { actDeleteMockupRequest, actFetchMockupsRequest } from './../../actions/index';
+import ListMockup from '../../../components/customer/mockups/ListMockup';
+import MockupItem from "../../../components/customer/mockups/MockupItem";
+import { actDeleteMockupRequest, actFetchMockupsRequest } from './../../../actions/index';
 
 
 
@@ -14,7 +14,7 @@ class ListMockupsPage extends Component {
 
     render() {
         var { mockups } = this.props;
-       
+
         return (
             <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <ListMockup>{this.showMockups(mockups)}</ListMockup>
@@ -32,14 +32,14 @@ class ListMockupsPage extends Component {
                         key={index}
                         mockup={mockup}
                         index={index}
-                        onDelete = {this.onDelete}
+                        onDelete={this.onDelete}
                     />
                 );
             })
         }
         return result;
     }
-    onDelete =(id)=>{
+    onDelete = (id) => {
         this.props.deleteMockup(id);
     }
 }
@@ -55,7 +55,7 @@ const mapDispatchToProps = (dispatch, props) => {
         fetchAllMockup: () => {
             dispatch(actFetchMockupsRequest())
         },
-        deleteMockup: (id)=>{
+        deleteMockup: (id) => {
             dispatch(actDeleteMockupRequest(id))
         }
     }

@@ -1,8 +1,8 @@
 import { Component } from "react";
 import { connect } from 'react-redux';
-import { actDeleteTypeMockupRequest, actFetchTypesMockupRequest } from "../../actions";
-import ListMockupType from "../../components/mockupTypes/ListMockupType";
-import MockupTypeItem from "../../components/mockupTypes/MockupTypeItem";
+import { actDeleteTypeMockupRequest, actFetchTypesMockupRequest } from "../../../actions";
+import ListMockupType from "../../../components/admin/mockupTypes/ListMockupType";
+import MockupTypeItem from "../../../components/admin/mockupTypes/MockupTypeItem";
 
 
 

@@ -2,7 +2,7 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { actAddTypeMockupRequest, actEditTypeMockupRequest, actFetchTypesMockupRequest, actUpdateTypeMockupRequest } from '../../actions';
+import { actAddTypeMockupRequest, actEditTypeMockupRequest, actFetchTypesMockupRequest, actUpdateTypeMockupRequest } from '../../../actions';
 
 
 class MockupTypeActionPage extends Component {
@@ -84,7 +84,7 @@ class MockupTypeActionPage extends Component {
                             className="form-control"
                             value={name}
                             name="name"
-                            onChange={this.onChange}
+                            onChange={this.onChange}  
                         />
 
                         <div className={className}>

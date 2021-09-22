@@ -2,8 +2,8 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { actAddMockupRequest, actEditMockupRequest, actFetchTypesMockupRequest, actUploadMockupRequest } from '../../actions';
-import * as Types from './../../constants/Config';
+import { actAddMockupRequest, actEditMockupRequest, actFetchTypesMockupRequest, actUploadMockupRequest } from '../../../actions';
+import * as Types from '../../../constants/Config';
 
 class MockupActionPage extends Component {
 
@@ -17,6 +17,7 @@ class MockupActionPage extends Component {
             type: 0,
             image: "",
             path: "",
+            selectedFile: null
         }
     }
 
@@ -58,7 +59,7 @@ class MockupActionPage extends Component {
 
         var target = e.target;
         var name = target.name;
-        var value = target.type === 'file' ? target.files[0].name : target.value;
+        var value = target.type === 'file' ? null : target.value;
         this.setState({
             [name]: value
         });
@@ -86,6 +87,10 @@ class MockupActionPage extends Component {
                 reader.readAsDataURL(file);
             }
         }
+        if (target.type === 'file') {
+            this.setState({ selectedFile: target.files[0] });
+        }
+        //console.log(this.state)
     }
     onSave = (e) => {
 
@@ -101,11 +106,23 @@ class MockupActionPage extends Component {
             image: image,
         }
         e.preventDefault();
-        if(id){
+        if (id) {
             this.props.updateMockup(mockup);
         }
-        else{
-            this.props.addMockup(mockup);
+        else {
+            //this.props.addMockup(mockup);
+            const formData = new FormData();
+
+            // Update the formData object 
+            formData.append(
+                "myFile",
+                this.state.selectedFile,
+                this.state.selectedFile.name
+            );
+
+            // Details of the uploaded file 
+            
+            this.props.addMockup(formData);
         }
         history.goBack();
     }
@@ -182,7 +199,7 @@ class MockupActionPage extends Component {
                                 <input
 
                                     type="file"
-                                    name="image"
+                                    name="selectedFile"
                                     onChange={this.onChange}
                                     accept="image/*"
                                     className="form-control" />
@@ -228,7 +245,7 @@ const mapDispatchToProps = (dispatch, props) => {
         editMockup: (id) => {
             dispatch(actEditMockupRequest(id))
         },
-        updateMockup: (mockup) =>{
+        updateMockup: (mockup) => {
             dispatch(actUploadMockupRequest(mockup))
         }
     }

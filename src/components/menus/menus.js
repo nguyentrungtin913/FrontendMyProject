@@ -6,17 +6,17 @@ import { Link } from 'react-router-dom';
 const menus = [
     {
         name: 'Home',
-        to: '/',
+        to: '/customer',
         exact: true
     },
     {
         name: 'Mockups',
-        to: '/mockups',
+        to: '/admin/mockups',
         exact: false
     },
     {
         name: 'MockupTypes',
-        to: '/mockup-types',
+        to: '/admin/mockup-types',
         exact: false
     }
 ]
